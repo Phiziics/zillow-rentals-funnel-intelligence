@@ -1,0 +1,16 @@
+pandas
+numpy
+scikit-learn
+matplotlib
+plotly
+jupyter
+notebook
+ipykernel
+fastapi
+uvicorn
+streamlit
+pydantic
+pyyaml
+joblib
+pytest
+httpx
