@@ -1,0 +1,48 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.so
+
+# Virtual environments
+venv/
+.venv/
+env/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Environment / secrets
+.env
+.env.*
+*.pem
+secrets.yaml
+
+# Build / cache
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+coverage/
+htmlcov/
+
+# Data
+data/02-preprocessed/
+data/03-features/
+data/04-predictions/
+
+# Artifacts
+artifacts/*.joblib
+artifacts/*.pkl
+artifacts/*.onnx
+artifacts/*.pt
+artifacts/*.bin
+
+# Logs
+*.log
