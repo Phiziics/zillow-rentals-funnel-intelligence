@@ -1,0 +1,15 @@
+pip install kaggle
+
+On Kaggle:
+go to Account
+create new API token
+it downloads kaggle.json
+
+C:\Users\{username}\.kaggle\kaggle.json
+
+kaggle competitions download -c two-sigma-connect-rental-listing-inquiries -p data/01-raw
+
+Expand-Archive -Path data\01-raw\two-sigma-connect-rental-listing-inquiries.zip -DestinationPath data\01-raw -Force
+
+$env:KAGGLE_USERNAME="your_kaggle_username"
+$env:KAGGLE_KEY="your_copied_token_here"
