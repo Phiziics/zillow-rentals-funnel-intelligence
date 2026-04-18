@@ -1,11 +1,14 @@
 import json
+from pathlib import Path
+
 import joblib
 import numpy as np
 import pandas as pd
 
 
-MODEL_PATH = "artifacts/final_model.joblib"
-CITY_MAP_PATH = "artifacts/city_median_price_log_map.json"
+BASE_DIR = Path(__file__).resolve().parents[2]
+MODEL_PATH = BASE_DIR / "artifacts" / "final_model.joblib"
+CITY_MAP_PATH = BASE_DIR / "artifacts" / "city_median_price_log_map.json"
 THRESHOLD = 0.50
 
 model = joblib.load(MODEL_PATH)
@@ -17,6 +20,8 @@ with open(CITY_MAP_PATH, "r") as f:
 def build_features(input_df: pd.DataFrame) -> pd.DataFrame:
     input_df = input_df.copy()
 
+    input_df["availability_ratio"] = input_df["availability_365"] / 365
+    input_df["price_log"] = np.log1p(input_df["price"])
     input_df["demand_score_log"] = np.log1p(input_df["demand_score"])
 
     input_df["room_city"] = (
@@ -25,8 +30,8 @@ def build_features(input_df: pd.DataFrame) -> pd.DataFrame:
 
     input_df["city_median_price_log"] = input_df["city"].map(city_median_price_log_map)
 
-    global_median_price_log = float(np.median(list(city_median_price_log_map.values())))
-    input_df["city_median_price_log"] = input_df["city_median_price_log"].fillna(global_median_price_log)
+    global_city_price_log = float(np.median(list(city_median_price_log_map.values())))
+    input_df["city_median_price_log"] = input_df["city_median_price_log"].fillna(global_city_price_log)
 
     input_df["price_log_diff_from_city"] = (
         input_df["price_log"] - input_df["city_median_price_log"]
@@ -36,9 +41,7 @@ def build_features(input_df: pd.DataFrame) -> pd.DataFrame:
         input_df["price_log_diff_from_city"],
         bins=[-10, -0.25, 0.25, 10],
         labels=["below_city", "near_city", "above_city"]
-    )
-
-    input_df["relative_price_bucket"] = input_df["relative_price_bucket"].astype(str)
+    ).astype(str)
 
     input_df["listing_attractiveness_score"] = (
         0.4 * input_df["demand_score_log"]
