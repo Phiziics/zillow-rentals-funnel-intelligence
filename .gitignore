@@ -43,6 +43,7 @@ artifacts/*.pkl
 artifacts/*.onnx
 artifacts/*.pt
 artifacts/*.bin
+artifacts/*
 
 # Logs
 *.log
