@@ -1,0 +1,14 @@
+venv
+__pycache__
+.ipynb_checkpoints
+.git
+notebooks
+tests
+data/*
+entrypoint/*
+environment
+docker
+README.md
+Makefile
+.gitlab-ci.yml
+requirements-dev.txt

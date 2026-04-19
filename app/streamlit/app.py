@@ -1,7 +1,8 @@
+import os
 import streamlit as st
 import requests
 
-API_URL = "http://127.0.0.1:8000/predict/contact"
+API_URL = os.getenv("API_URL", "http://127.0.0.1:8000/predict/contact")
 
 st.set_page_config(page_title="Zillow Rentals Funnel Intelligence", layout="wide")
 

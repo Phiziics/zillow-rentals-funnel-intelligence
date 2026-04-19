@@ -1,0 +1,28 @@
+version: "3.9"
+
+services:
+  api:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile.api
+    container_name: zillow_api
+    ports:
+      - "8000:8000"
+    volumes:
+      - ../:/app
+    restart: unless-stopped
+
+  streamlit:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile.streamlit
+    container_name: zillow_streamlit
+    ports:
+      - "8501:8501"
+    volumes:
+      - ../:/app
+    environment:
+      API_URL: http://api:8000/predict/contact
+    depends_on:
+      - api
+    restart: unless-stopped
